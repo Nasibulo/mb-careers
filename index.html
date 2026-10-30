@@ -424,7 +424,10 @@ const TEXTS = {
    ЛОГИКА СТРАНИЦЫ
    ============================================================ */
 const tg = window.Telegram && window.Telegram.WebApp;
-const inTelegram = !!(tg && tg.initData);   // открыта ли анкета внутри Telegram
+// Открыта ли анкета внутри Telegram. initData не подходит: при открытии
+// с кнопки клавиатуры (наш случай) Telegram его не передаёт.
+// Вне Telegram скрипт сообщает платформу "unknown".
+const inTelegram = !!(tg && tg.platform && tg.platform !== "unknown");
 
 // Язык приходит от бота в ссылке: ...index.html?lang=uz
 const params = new URLSearchParams(location.search);
